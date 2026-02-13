@@ -21,7 +21,7 @@ vs.save("vectorstore.pkl")
 # Step 5: load vector store and query
 vs2 = VectorStore.load("vectorstore.pkl")
 
-# Example query
+# Example query``````````
 query = "summarize key points about embeddings"
 query_emb = generate_embeddings([query])[0]  # embedding of query
 results = vs2.query(query_emb, top_k=3)
