@@ -2,13 +2,23 @@ import fitz
 import pytesseract
 from PIL import Image
 import io
+from typing import Union
 
+def extract_text_from_pdf(file: Union[str, io.BytesIO]) -> str:
+    """
+    Extract text from PDF.
+    Accepts either:
+    - file path (str)
+    - Streamlit uploaded file (BytesIO)
+    """
 
-def extract_text_from_pdf(file_path: str) -> str:
     extracted_text = ""
 
     try:
-        pdf = fitz.open(file_path)
+        if isinstance(file, io.BytesIO):
+            pdf = fitz.open(stream=file.read(), filetype="pdf")
+        else:
+            pdf = fitz.open(file)
     except Exception as e:
         raise ValueError(f"Failed to open PDF file: {e}")
 
